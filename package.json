@@ -1,6 +1,6 @@
 {
   "name": "kbevent",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "监听键盘事件",
   "main": "index.js",
   "scripts": {
@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/RegExpRegExp/-KeyboardEvent/issues"
   },
-  "homepage": "https://github.com/RegExpRegExp/-KeyboardEvent#readme"
+  "homepage": "https://github.com/RegExpRegExp/-KeyboardEvent#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
 }

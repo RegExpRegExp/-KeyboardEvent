@@ -1,6 +1,6 @@
 const showClass = needShow => Object.prototype.toString.call(needShow).slice(8, -1);
 
-const date = function (timestamp) {
+const date = function (timestamp = new Date()) {
 	return {
 		DATE: new Date(timestamp),
 		YY: new Date(timestamp).getFullYear(),
@@ -30,7 +30,7 @@ export default class keyboard {
 		this.event = event;
 		this.delay = delay;
 		this.keyValue = new Map([
-			[32, 'Space']
+			['Digit9', '数字九']
 		])
 		this.triggeredKeyCodes = new Set([]);
 		this.timestamp = 0;
@@ -39,12 +39,13 @@ export default class keyboard {
 	}
 	fn(e) {
 		this.reset();
-		this.triggeredKeyCodes.add(e.keyCode);
+		this.triggeredKeyCodes.add(e.code);
 		if (this.needKeyCodes.every(key => this.triggeredKeyCodes.has(key))) {
-			this.callback(e, {
-				triggerTime: date().ms - this.timestamp
-			})
+			e.triggerTime = date().ms - this.timestamp;
+			this.callback(e);
+			this.timestamp = 0;
 		} else {
+			console.log(e);
 			console.log(this.needKeyCodes.map(keyCode => this.keyValue.get(keyCode)).join(',') + '没按完整')
 		}
 	}

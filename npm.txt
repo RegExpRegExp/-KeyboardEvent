@@ -1,0 +1,15 @@
+npm view kbevent versions 查看现在存在的版本
+npm publish --access=public  发布
+npm publish 更新前发布版本
+
+npm version patch 版本更新
+使用命令：npm version <update_type>
+update_type 有三个参数
+第一个是patch, 第二个是minor,第三个是 major
+patch：这个是补丁的意思，就是小小的改一下
+minor：这个是小修小改
+major：这个是大改
+使用：
+如果说要改为1.0.1，最后一位增加了1，命令：npm version patch
+如果说要改为1.1.1，中间一位增加了1，命令：npm version minor
+如果说要改为2.1.1，第一位增加了1，命令：npm version major
