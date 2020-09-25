@@ -1,0 +1,19 @@
+{
+  "name": "kbevent",
+  "version": "1.0.0",
+  "description": "监听键盘事件",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RegExpRegExp/-KeyboardEvent.git"
+  },
+  "author": "yanggw",
+  "license": "ISO",
+  "bugs": {
+    "url": "https://github.com/RegExpRegExp/-KeyboardEvent/issues"
+  },
+  "homepage": "https://github.com/RegExpRegExp/-KeyboardEvent#readme"
+}
