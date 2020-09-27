@@ -20,53 +20,57 @@ const date = function (timestamp = new Date()) {
 
 export default class keyboard {
 	constructor({
-		needKeyCodes,
-		callback,
+		node = document.body,
 		event = 'keydown',
-		delay = 1000
+		codes,
+		callback,
+		allowDelay = 1000
 	}) {
-		this.needKeyCodes = needKeyCodes;
-		this.callback = callback;
-		this.event = event;
-		this.delay = delay;
-		this.keyValue = new Map([
+		const self = this;
+		self.node = node;
+		self.event = event;
+		self.codes = codes;
+		self.callback = callback;
+		self.allowDelay = allowDelay;
+		self.keyValue = new Map([
 			['Digit9', '数字九']
 		])
-		this.triggeredKeyCodes = new Set([]);
-		this.timestamp = 0;
-		this.removeEvent();
-		this.addEvent();
+		self.triggeredKeyCodes = new Set([]);
+		self.timestamp = 0;
+		self.removeEvent();
+		self.addEvent();
 	}
 	fn(e) {
-		this.reset();
-		this.triggeredKeyCodes.add(e.code);
-		if (this.needKeyCodes.every(key => this.triggeredKeyCodes.has(key))) {
-			e.triggerTime = date().ms - this.timestamp;
-			this.callback(e);
-			this.timestamp = 0;
+		const self = this;
+		self.reset();
+		self.triggeredKeyCodes.add(e.code);
+		if (self.codes.every(key => self.triggeredKeyCodes.has(key))) {
+			e.triggerTime = date().ms - self.timestamp;
+			self.callback(e);
+			self.timestamp = 0;
 		} else {
 			console.log(e);
-			console.log(this.needKeyCodes.map(keyCode => this.keyValue.get(keyCode)).join(',') + '没按完整')
+			console.log(self.codes.map(keyCode => self.keyValue.get(keyCode)).join(',') + '没按完整')
 		}
 	}
 	reset() {
+		const self = this;
 		let timestamp = date().ms;
-		if (timestamp - this.timestamp > this.delay) {
-			this.triggeredKeyCodes = new Set([]);
-			this.timestamp = timestamp;
+		if (timestamp - self.timestamp > self.allowDelay) {
+			self.triggeredKeyCodes = new Set([]);
+			self.timestamp = timestamp;
 		}
 	}
 	addEvent() {
-		const that = this;
-		document.body.addEventListener(this.event, function (e) {
-			e.preventDefault();
-			that.fn(e);
+		const self = this;
+		self.node.addEventListener(self.event, function (e) {
+			self.fn(e);
 		}, false)
 	}
 	removeEvent() {
-		const that = this;
-		document.body.removeEventListener(this.event, function (e) {
-			that.fn(e);
+		const self = this;
+		self.node.removeEventListener(self.event, function (e) {
+			self.fn(e);
 		}, false)
 	}
 }

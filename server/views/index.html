@@ -8,24 +8,30 @@
 </head>
 
 <body>
-  <textarea id="textarea"></textarea>
+  <input id="input" type="text">
+  <input id="input2" type="text">
   <script type="module">
     import kbevent from '../js/index.js'
+    const input = document.querySelector("#input");
+    const input2 = document.querySelector("#input2");
     function callback(e) {
-      console.log(e, 8888888888)
+      if (e.key == "Process") {
+        return;
+      } else {
+        input2.value += e.key;
+      }
     }
-    let mockKeyboardEvent = new KeyboardEvent('keydown', { ctrlKey: true, keyCode: 86 });
-    // let kb = new kbevent({
-    //   needKeyCodes: ["Digit9"],
-    //   callback,
-    //   delay: 5000
-    // })
-
-    document.querySelector("#textarea").focus();
-    setTimeout(() => {
-      document.body.dispatchEvent(mockKeyboardEvent);
-      console.log(1)
-    }, 5000)   
+    //模拟键盘事件
+    let mockKeyboardEvent = new KeyboardEvent('keydown', { code: "Digit9" });
+    //注册键盘回调(物理和虚拟的键盘事件都能触发回调)
+    let kb = new kbevent({
+      node: input,
+      codes: ["Digit9"],
+      callback,
+      delay: 5000
+    })
+    //触发键盘事件
+    setTimeout(() => input.dispatchEvent(mockKeyboardEvent), 2000);
   </script>
 </body>
 
